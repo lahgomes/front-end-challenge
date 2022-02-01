@@ -2,11 +2,13 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --branco: rgba(255, 255, 255, 1);
-    --cinza: rgba(162, 162, 162, 1);
-    --laranja: rgba(250, 152, 47, 1);
-    --preto: rgba(60, 60, 60, 1);
-    --vermelho: rgba(245, 74, 72, 1);
+    --white: #FFFFFF;;
+    --dark-purple: #2D0C5E;
+    --purple: #5C16C5;
+    --black: #000000;
+    --gray: #646464;
+    --orange: #D18000;
+    --green: #14FF00;
     --light: 300;
     --normal: 400;
     --medium: 500;
