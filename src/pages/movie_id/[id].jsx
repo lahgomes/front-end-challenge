@@ -1,6 +1,12 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
-export default function DetalhesPage() {
+import * as S from './styles'
+
+export default function DetalhesMoviePage() {
+  const router = useRouter()
+  const { id } = router.query
+
   return (
     <div>
       <Head>
@@ -9,7 +15,7 @@ export default function DetalhesPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>detalhes</h1>
+      <S.Title>infos do filme {id}</S.Title>
     </div>
   )
 }
