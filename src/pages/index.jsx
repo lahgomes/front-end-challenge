@@ -1,9 +1,17 @@
+import Hero from '../components/Hero'
+
 import * as S from './styles'
 
-export default function Home() {
+const Home = () => {
   return (
     <>
-      <S.Title>teste</S.Title>
+      <Hero>
+        <S.Title>
+          Milhões de filmes, séries e pessoas para descobrir. Explore já.
+        </S.Title>
+      </Hero>
     </>
   )
 }
+
+export default Home
