@@ -1,12 +1,17 @@
-import Header from '../components/Header'
 import GlobalStyles from '../styles/global'
+import { theme } from '../styles/theme'
+import { ThemeProvider } from 'styled-components'
+
+import Header from '../components/Header'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <GlobalStyles />
-      <Header />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Header />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }

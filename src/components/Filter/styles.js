@@ -5,7 +5,7 @@ export const Form = styled.form`
 `
 
 export const FormTitle = styled.legend`
-  color: var(--white);
+  color: ${props => props.theme.white};
   font-size: 1.4rem;
   margin-bottom: 1.6rem;
   text-transform: uppercase;
@@ -32,13 +32,12 @@ export const Wrapper = styled.div`
 `
 
 export const FormLabel = styled.label`
-  background-color: var(--white);
+  background-color: ${props => props.theme.white};
   border-radius: 0.4rem;
-  color: var(--black);
+  color: ${props => props.theme.black};
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: ${props => props.theme.bold};
   padding: 0.8rem 1.6rem;
-  //margin: 1.2rem;
 `
 
 export const CheckBoxGenre = styled.input`
@@ -46,8 +45,8 @@ export const CheckBoxGenre = styled.input`
 
   &:checked {
     & ~ label {
-      background-color: var(--orange);
-      color: var(--white);
+      background-color: ${props => props.theme.orange};
+      color: ${props => props.theme.white};
 
       svg {
         display: initial;

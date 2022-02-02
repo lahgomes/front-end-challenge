@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Hero = styled.section`
   align-items: center;
-  background-color: var(--dark-purple);
+  background-color: ${props => props.theme.darkPurple};
   display: flex;
   flex-direction: column;
   justify-content: center;
