@@ -11,3 +11,12 @@ export const Title = styled.h1`
     width: 78rem;
   }
 `
+export const MovieList = styled.section`
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 100rem;
+  padding: 4rem 1.5rem;
+  width: 100%;
+`
