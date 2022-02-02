@@ -35,6 +35,7 @@ export const FormLabel = styled.label`
   background-color: ${props => props.theme.white};
   border-radius: 0.4rem;
   color: ${props => props.theme.black};
+  cursor: pointer;
   font-size: 1.6rem;
   font-weight: ${props => props.theme.bold};
   padding: 0.8rem 1.6rem;
