@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Header = styled.header`
-  background-color: var(--purple);
+  background-color: ${props => props.theme.purple};
   height: 5.6rem;
   width: 100%;
 `
