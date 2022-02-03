@@ -13,10 +13,11 @@ export const Title = styled.h1`
 `
 export const MovieList = styled.section`
   display: flex;
+  flex-wrap: wrap;
   gap: 3rem;
   justify-content: center;
   margin: 0 auto;
-  max-width: 100rem;
+  max-width: 120rem;
   padding: 4rem 1.5rem;
   width: 100%;
 `
