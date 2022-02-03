@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
   width: 100%;
   flex-wrap: wrap;
   gap: 3rem 1rem;
+  padding: 1rem;
 
   @media (min-width: 768px) {
     justify-content: center;
