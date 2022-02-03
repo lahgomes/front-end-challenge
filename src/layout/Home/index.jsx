@@ -11,7 +11,7 @@ const HomeLayout = () => {
   useEffect(() => {
     const movies = async () => {
       const response = await fetch(
-        'https://api.themoviedb.org/3/movie/popular?api_key=91e3f84b6e80849e357d4fe51e424953',
+        'https://api.themoviedb.org/3/movie/popular?api_key=91e3f84b6e80849e357d4fe51e424953&language=pt-BR',
       )
 
       const data = await response.json()
