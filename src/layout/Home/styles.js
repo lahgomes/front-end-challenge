@@ -21,3 +21,20 @@ export const MovieList = styled.section`
   padding: 4rem 1.5rem;
   width: 100%;
 `
+
+export const WrapperPagination = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  padding: 3rem;
+
+  .pagination {
+    button {
+      color: ${props => props.theme.purple};
+      font-size: 1.6rem;
+      font-weight: ${props => props.theme.bold};
+    }
+  }
+`
