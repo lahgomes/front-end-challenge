@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Thumb = styled.figure`
-  //height: 30rem;
   overflow: hidden;
   width: 17.6rem;
 
