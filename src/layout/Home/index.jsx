@@ -12,6 +12,7 @@ const HomeLayout = () => {
   const router = useRouter()
   const [popularMovies, setPopularMovies] = useState([])
   const [page, setPage] = useState(parseInt(router.query.page) || 1)
+  const [genres, setGenres] = useState([])
 
   useEffect(() => {
     const movies = async () => {
@@ -37,13 +38,27 @@ const HomeLayout = () => {
     router.push(`/?page=${value}`)
   }
 
+  useEffect(() => {
+    const genres = async () => {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+      )
+
+      const data = await response.json()
+      setGenres([...data.genres])
+    }
+
+    genres()
+  }, [])
+
   return (
     <main>
       <Hero>
         <S.Title>
           Milhões de filmes, séries e pessoas para descobrir. Explore já.
         </S.Title>
-        <Filter />
+
+        <Filter genres={genres} />
       </Hero>
       <S.MovieList>
         {popularMovies.map(infos => (

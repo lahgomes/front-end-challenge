@@ -23,12 +23,12 @@ export const MovieList = styled.section`
 `
 
 export const WrapperPagination = styled.section`
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   margin: 0 auto;
-  width: 100%;
   padding: 3rem;
+  width: 100%;
 
   .pagination {
     button {

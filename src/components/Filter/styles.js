@@ -16,11 +16,12 @@ export const FormTitle = styled.legend`
 `
 export const Wrapper = styled.div`
   display: flex;
-  margin: 0 auto;
-  max-width: 90rem;
-  width: 100%;
   flex-wrap: wrap;
   gap: 3rem 1rem;
+  margin: 0 auto;
+  max-width: 90rem;
+  padding: 1rem;
+  width: 100%;
 
   @media (min-width: 768px) {
     justify-content: center;
