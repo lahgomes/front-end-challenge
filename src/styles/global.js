@@ -19,6 +19,15 @@ const GlobalStyles = createGlobalStyle`
     font-size: 16px;
     font-family: ${props => props.theme.fontFamily}
   }
+
+  .mySwiper {
+    height: 100%;
+    width: 100%;
+  }
+
+  .swiper-wrapper {
+    height: 10rem;
+  }
 `
 
 export default GlobalStyles
