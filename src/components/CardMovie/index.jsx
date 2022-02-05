@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { formatDate } from '../../utils'
 import * as S from './styles'
 
-const Cards = ({ name, date, poster }) => {
+const CardMovie = ({ name, date, poster }) => {
   return (
     <>
       <S.Thumb>
@@ -21,4 +21,4 @@ const Cards = ({ name, date, poster }) => {
   )
 }
 
-export default Cards
+export default CardMovie

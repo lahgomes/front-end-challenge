@@ -4,7 +4,7 @@ import Pagination from '@mui/material/Pagination'
 
 import Hero from '../../components/Hero'
 import Filter from '../../components/Filter'
-import Cards from '../../components/Cards'
+import CardMovie from '../../components/CardMovie'
 
 import * as S from './styles'
 
@@ -62,7 +62,7 @@ const HomeLayout = () => {
       </Hero>
       <S.MovieList>
         {popularMovies.map(infos => (
-          <Cards
+          <CardMovie
             key={infos.id}
             name={infos.title}
             date={infos.release_date}

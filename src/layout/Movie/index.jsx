@@ -2,11 +2,10 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Head from 'next/head'
 import Hero from '../../components/Hero'
+import CardCast from '../../components/CardCast'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
-
-//import './styles.css'
 
 import * as S from './styles'
 
@@ -20,7 +19,7 @@ const MovieLayout = () => {
         <title>{id}</title>
       </Head>
       <Hero>
-        <S.Container>
+        <S.Container className="containerhero">
           <S.Poster>
             <Image
               src="/assets/poster-teste.png"
@@ -62,14 +61,15 @@ const MovieLayout = () => {
           </S.WrapperText>
         </S.Container>
       </Hero>
-      <section style={{ padding: '10rem 0' }}>
+      <S.Container>
+        <h1>Elenco original</h1>
         <Swiper
           scrollbar={{
-            hide: true,
+            hide: false,
           }}
           modules={[Scrollbar]}
           className="mySwiper"
-          slidesPerView={1}
+          slidesPerView={2}
           spaceBetween={10}
           breakpoints={{
             640: {
@@ -86,17 +86,35 @@ const MovieLayout = () => {
             },
           }}
         >
-          <SwiperSlide>Slide 1</SwiperSlide>
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
-          <SwiperSlide>Slide 4</SwiperSlide>
-          <SwiperSlide>Slide 5</SwiperSlide>
-          <SwiperSlide>Slide 6</SwiperSlide>
-          <SwiperSlide>Slide 7</SwiperSlide>
-          <SwiperSlide>Slide 8</SwiperSlide>
-          <SwiperSlide>Slide 9</SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
         </Swiper>
-      </section>
+      </S.Container>
     </div>
   )
 }

@@ -26,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .swiper-wrapper {
-    height: 10rem;
+    height: 40rem;
   }
 `
 
