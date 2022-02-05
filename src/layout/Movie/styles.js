@@ -4,11 +4,15 @@ export const Container = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: 3rem;
-  justify-content: center;
+  //justify-content: center;
   margin: 0 auto;
   max-width: 120rem;
   padding: 4rem 1.5rem;
   width: 100%;
+
+  &.containerhero {
+    justify-content: center;
+  }
 `
 export const Poster = styled.figure`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));

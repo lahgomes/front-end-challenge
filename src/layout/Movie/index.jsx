@@ -2,6 +2,10 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Head from 'next/head'
 import Hero from '../../components/Hero'
+import CardCast from '../../components/CardCast'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Scrollbar } from 'swiper'
 
 import * as S from './styles'
 
@@ -15,7 +19,7 @@ const MovieLayout = () => {
         <title>{id}</title>
       </Head>
       <Hero>
-        <S.Container>
+        <S.Container className="containerhero">
           <S.Poster>
             <Image
               src="/assets/poster-teste.png"
@@ -57,6 +61,60 @@ const MovieLayout = () => {
           </S.WrapperText>
         </S.Container>
       </Hero>
+      <S.Container>
+        <h1>Elenco original</h1>
+        <Swiper
+          scrollbar={{
+            hide: false,
+          }}
+          modules={[Scrollbar]}
+          className="mySwiper"
+          slidesPerView={2}
+          spaceBetween={10}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 4,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 50,
+            },
+          }}
+        >
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+          <SwiperSlide>
+            <CardCast />
+          </SwiperSlide>
+        </Swiper>
+      </S.Container>
     </div>
   )
 }
