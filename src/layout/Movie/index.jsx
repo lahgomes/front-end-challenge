@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Hero from '../../components/Hero'
 import CardCast from '../../components/CardCast'
+import TrailerMovie from '../../components/TrailerMovie'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
@@ -14,7 +15,7 @@ const MovieLayout = () => {
   const { id } = router.query
 
   return (
-    <div>
+    <main>
       <Head>
         <title>{id}</title>
       </Head>
@@ -115,7 +116,16 @@ const MovieLayout = () => {
           </SwiperSlide>
         </Swiper>
       </S.Container>
-    </div>
+
+      <S.Container>
+        <h1>Trailer</h1>
+        <TrailerMovie />
+      </S.Container>
+
+      <S.Container>
+        <h1>Recomendações</h1>
+      </S.Container>
+    </main>
   )
 }
 
