@@ -4,7 +4,7 @@ export const Container = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: 3rem;
-  //justify-content: center;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 120rem;
   padding: 4rem 1.5rem;
@@ -12,6 +12,7 @@ export const Container = styled.section`
 
   &.containerhero {
     justify-content: center;
+    flex-direction: row;
   }
 `
 export const Poster = styled.figure`
