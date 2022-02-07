@@ -80,6 +80,7 @@ const HomeLayout = () => {
                 name={infos.title}
                 date={infos.release_date}
                 poster={infos.poster_path}
+                id={infos.id}
               />
             ))
           : popularMovies
@@ -92,6 +93,7 @@ const HomeLayout = () => {
                   name={infos.title}
                   date={infos.release_date}
                   poster={infos.poster_path}
+                  id={infos.id}
                 />
               ))}
       </S.MovieList>
