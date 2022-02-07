@@ -11,8 +11,8 @@ export const Container = styled.section`
   width: 100%;
 
   &.containerhero {
-    justify-content: center;
     flex-direction: row;
+    justify-content: center;
   }
 `
 export const Poster = styled.figure`
@@ -42,11 +42,16 @@ export const TitleMovie = styled.h1`
   font-weight: ${props => props.theme.bold};
   margin-bottom: 1rem;
 `
-export const SubtitleMovie = styled.h2`
+export const InfosMovie = styled.ul`
   font-size: 1.8rem;
   font-weight: ${props => props.theme.normal};
   margin-bottom: 3rem;
+
+  li {
+    list-style: none;
+  }
 `
+
 export const TitleSynopsis = styled.h3`
   font-size: 2rem;
   font-weight: ${props => props.theme.bold};
@@ -58,10 +63,10 @@ export const DescriptionMovie = styled.p`
   margin-bottom: 2rem;
 `
 export const StaffMovie = styled.p`
-  font-size: 1.6rem;
-  font-weight: ${props => props.theme.normal};
   display: flex;
   flex-wrap: wrap;
+  font-size: 1.6rem;
+  font-weight: ${props => props.theme.normal};
   gap: 5rem;
 
   p {
