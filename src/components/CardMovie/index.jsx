@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { formatDate } from '../../utils'
+import { IMAGE_URL } from '../../api/config'
+
 import * as S from './styles'
 
 const CardMovie = ({ id, name, date, poster }) => {
@@ -10,7 +12,7 @@ const CardMovie = ({ id, name, date, poster }) => {
         <Link href={`/movie/${id}`}>
           <a>
             <Image
-              src={`https://image.tmdb.org/t/p/w400/${poster}`}
+              src={`${IMAGE_URL}/${poster}`}
               alt="poster"
               width={176}
               height={264}
