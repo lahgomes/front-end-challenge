@@ -40,6 +40,16 @@ export const FormLabel = styled.label`
   font-size: 1.6rem;
   font-weight: ${props => props.theme.bold};
   padding: 0.8rem 1.6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  svg {
+    color: ${props => props.theme.white};
+    display: none;
+  }
 `
 
 export const CheckBoxGenre = styled.input`

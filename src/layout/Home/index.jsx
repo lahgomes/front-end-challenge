@@ -13,6 +13,7 @@ const HomeLayout = () => {
   const [popularMovies, setPopularMovies] = useState([])
   const [page, setPage] = useState(parseInt(router.query.page) || 1)
   const [genres, setGenres] = useState([])
+  const [selectedGenres, setSelectedGenres] = useState([])
 
   useEffect(() => {
     const movies = async () => {
@@ -51,6 +52,16 @@ const HomeLayout = () => {
     genres()
   }, [])
 
+  const handleFilterGenres = (e, idMovie) => {
+    if (e.target.checked) {
+      setSelectedGenres(prevState => [...prevState, idMovie])
+      return
+    }
+
+    const removeGenres = selectedGenres.filter(value => value !== idMovie)
+    setSelectedGenres(removeGenres)
+  }
+
   return (
     <main>
       <Hero>
@@ -58,27 +69,44 @@ const HomeLayout = () => {
           Milhões de filmes, séries e pessoas para descobrir. Explore já.
         </S.Title>
 
-        <Filter genres={genres} />
+        <Filter genres={genres} handleFilterGenres={handleFilterGenres} />
       </Hero>
+
       <S.MovieList>
-        {popularMovies.map(infos => (
-          <CardMovie
-            key={infos.id}
-            name={infos.title}
-            date={infos.release_date}
-            poster={infos.poster_path}
-          />
-        ))}
+        {selectedGenres.length === 0
+          ? popularMovies.map(infos => (
+              <CardMovie
+                key={infos.id}
+                name={infos.title}
+                date={infos.release_date}
+                poster={infos.poster_path}
+              />
+            ))
+          : popularMovies
+              .filter(infos =>
+                infos.genre_ids.some(item => selectedGenres.includes(item)),
+              )
+              .map(infos => (
+                <CardMovie
+                  key={infos.id}
+                  name={infos.title}
+                  date={infos.release_date}
+                  poster={infos.poster_path}
+                />
+              ))}
       </S.MovieList>
-      <S.WrapperPagination>
-        <Pagination
-          count={100}
-          page={page}
-          onChange={handleChange}
-          color="standard"
-          className="pagination"
-        />
-      </S.WrapperPagination>
+
+      {selectedGenres.length === 0 && (
+        <S.WrapperPagination>
+          <Pagination
+            count={100}
+            page={page}
+            onChange={handleChange}
+            color="standard"
+            className="pagination"
+          />
+        </S.WrapperPagination>
+      )}
     </main>
   )
 }
