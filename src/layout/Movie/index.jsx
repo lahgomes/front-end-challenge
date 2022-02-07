@@ -7,6 +7,7 @@ import Head from 'next/head'
 import Hero from '../../components/Hero'
 import CardCast from '../../components/CardCast'
 import TrailerMovie from '../../components/TrailerMovie'
+import CardMovie from '../../components/CardMovie'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
@@ -22,6 +23,7 @@ const MovieLayout = () => {
   const [movieCrew, setMovieCrew] = useState([])
   const [movieCast, setMovieCast] = useState([])
   const [movieVideo, setMovieVideo] = useState([])
+  const [movieRecommendations, setMovieRecommendations] = useState([])
 
   const { id } = router.query
 
@@ -86,12 +88,26 @@ const MovieLayout = () => {
       )
 
       const data = await response.json()
-      console.log('video ', data)
       setMovieVideo(data.results)
     }
 
     if (id !== undefined) {
       moviesvideos()
+    }
+  }, [id])
+
+  useEffect(() => {
+    const moviesrecommendations = async () => {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR&page=1`,
+      )
+
+      const data = await response.json()
+      setMovieRecommendations(data.results)
+    }
+
+    if (id !== undefined) {
+      moviesrecommendations()
     }
   }, [id])
 
@@ -209,9 +225,24 @@ const MovieLayout = () => {
         </S.Container>
       )}
 
-      {/* <S.Container>
+      <S.Container>
         <h1>Recomendações</h1>
-      </S.Container> */}
+        <S.WrapperRecommendation>
+          {movieRecommendations
+            .filter((_, index) => index < 5)
+            .map(movie => {
+              console.log(movie)
+              return (
+                <CardMovie
+                  key={movie.id}
+                  name={movie.title}
+                  date={movie.release_date}
+                  poster={movie.poster_path}
+                />
+              )
+            })}
+        </S.WrapperRecommendation>
+      </S.Container>
     </main>
   )
 }

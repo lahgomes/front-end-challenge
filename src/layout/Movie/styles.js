@@ -74,3 +74,8 @@ export const StaffMovie = styled.p`
     padding-bottom: 2rem;
   }
 `
+
+export const WrapperRecommendation = styled.div`
+  display: flex;
+  gap: 3rem;
+`
