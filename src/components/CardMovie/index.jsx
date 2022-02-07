@@ -21,7 +21,7 @@ const CardMovie = ({ id, name, date, poster }) => {
         </Link>
         <S.Legend>
           <S.LegendTitle>{name}</S.LegendTitle>
-          <S.LegendData>{formatDate(date)}</S.LegendData>
+          <S.LegendData>{formatDate(date, 'short')}</S.LegendData>
         </S.Legend>
       </S.Thumb>
     </>

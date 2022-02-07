@@ -168,7 +168,7 @@ const MovieLayout = () => {
                 ?.filter(item => item.department === 'Writing')
                 .slice(0, 2)
                 .map(item => (
-                  <div key={item.id}>
+                  <div key={Math.random(item.id)}>
                     <h3>{item.original_name}</h3>
                     <p>{item.job}</p>
                   </div>
@@ -229,12 +229,12 @@ const MovieLayout = () => {
         <h1>Recomendações</h1>
         <S.WrapperRecommendation>
           {movieRecommendations
-            .filter((_, index) => index < 5)
+            .filter((_, index) => index < 6)
             .map(movie => {
-              console.log(movie)
               return (
                 <CardMovie
                   key={movie.id}
+                  id={movie.id}
                   name={movie.title}
                   date={movie.release_date}
                   poster={movie.poster_path}
