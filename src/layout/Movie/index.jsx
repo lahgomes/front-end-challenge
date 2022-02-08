@@ -8,6 +8,7 @@ import Hero from '../../components/Hero'
 import CardCast from '../../components/CardCast'
 import TrailerMovie from '../../components/TrailerMovie'
 import CardMovie from '../../components/CardMovie'
+import PosterMovie from '../../components/PosterMovie'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
@@ -66,16 +67,7 @@ const MovieLayout = ({ movie }) => {
       </Head>
       <Hero>
         <S.Container className="containerhero">
-          <S.Poster>
-            <Image
-              src={`${IMAGE_URL}/${movie.poster_path}`}
-              alt="poster"
-              width={383}
-              height={574}
-              quality={80}
-              loading="lazy"
-            />
-          </S.Poster>
+          <PosterMovie poster={movie.poster_path} />
           <S.WrapperText>
             <S.TitleMovie>
               {movie.title} ({movie.release_date.slice(0, 4)})
