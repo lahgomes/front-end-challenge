@@ -11,6 +11,7 @@ import CardMovie from '../../components/CardMovie'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
+import { PieChart } from 'react-minimal-pie-chart'
 import { IMAGE_URL } from '../../api/config'
 
 import * as S from './styles'
@@ -18,6 +19,7 @@ import * as S from './styles'
 const MovieLayout = ({ movie }) => {
   const router = useRouter()
   const { id } = router.query
+  const percentAverage = (movie.vote_average * 100) / 10
 
   const [isLoading, setIsLoading] = useState(false)
   const [releaseDates, setReleaseDates] = useState([])
@@ -97,9 +99,32 @@ const MovieLayout = ({ movie }) => {
               </li>
               <li>{convertHours(movie.runtime)}</li>
             </S.InfosMovie>
+            <S.MovieDonutChart>
+              <S.MovieDonutChartContent>
+                <PieChart
+                  data={[
+                    {
+                      value: Math.round(percentAverage) || ' ',
+                      color: '#14FF00',
+                    },
+                  ]}
+                  totalValue={100}
+                  lineWidth={20}
+                  label={({ dataEntry }) => `${dataEntry.value}%`}
+                  labelPosition={0}
+                  rounded={true}
+                  startAngle={270}
+                  style={{ widht: '80px' }}
+                  labelStyle={{ fontSize: '2.2rem', fill: '#14FF00' }}
+                />
+              </S.MovieDonutChartContent>
+              <p>
+                Avaliação dos <br /> usuários
+              </p>
+            </S.MovieDonutChart>
+
             <S.TitleSynopsis>Sinopse</S.TitleSynopsis>
             <S.DescriptionMovie>{movie.overview}</S.DescriptionMovie>
-
             <S.StaffMovie>
               <div>
                 <h3>{movieCast[0]?.original_name}</h3>

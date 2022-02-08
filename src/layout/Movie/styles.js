@@ -112,3 +112,21 @@ export const WrapperRecommendation = styled.div`
     flex-direction: row;
   }
 `
+export const MovieDonutChart = styled.div`
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+
+  p {
+    font-size: 1.6rem;
+    font-weight: ${props => props.theme.normal};
+    line-height: 2rem;
+  }
+`
+
+export const MovieDonutChartContent = styled.span`
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 8rem;
+`
