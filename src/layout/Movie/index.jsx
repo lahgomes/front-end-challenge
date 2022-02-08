@@ -58,21 +58,6 @@ const MovieLayout = ({ movie }) => {
     allInfoMovie()
   }, [movie.id])
 
-  /* useEffect(() => {
-    const releasedates = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-      )
-
-      const data = await response.json()
-
-      console.log('dates', data)
-      setReleaseDates(data.results)
-    }
-
-    releasedates()
-  }, [id]) */
-
   return (
     <main>
       <Head>
