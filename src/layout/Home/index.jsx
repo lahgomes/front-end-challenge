@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Pagination from '@mui/material/Pagination'
+import Box from '@mui/material/Box'
+import Skeleton from '@mui/material/Skeleton'
 
 import Hero from '../../components/Hero'
 import Filter from '../../components/Filter'
@@ -15,15 +17,23 @@ const HomeLayout = () => {
   const [page, setPage] = useState(parseInt(router.query.page) || 1)
   const [genres, setGenres] = useState([])
   const [selectedGenres, setSelectedGenres] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const movies = async () => {
-      const response = await fetch(
-        `${BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}&language=pt-BR`,
-      )
+      try {
+        setIsLoading(true)
+        const response = await fetch(
+          `${BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}&language=pt-BR`,
+        )
 
-      const data = await response.json()
-      setPopularMovies([...data.results])
+        const data = await response.json()
+        setPopularMovies([...data.results])
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     movies()
@@ -73,22 +83,27 @@ const HomeLayout = () => {
         <Filter genres={genres} handleFilterGenres={handleFilterGenres} />
       </Hero>
 
-      <S.MovieList>
-        {selectedGenres.length === 0
-          ? popularMovies.map(infos => (
-              <CardMovie
-                key={infos.id}
-                name={infos.title}
-                date={infos.release_date}
-                poster={infos.poster_path}
-                id={infos.id}
-              />
-            ))
-          : popularMovies
-              .filter(infos =>
-                infos.genre_ids.some(item => selectedGenres.includes(item)),
-              )
-              .map(infos => (
+      {isLoading ? (
+        <S.MovieList>
+          {Array(10)
+            .fill()
+            .map((_, index) => (
+              <Box key={index}>
+                <Skeleton
+                  variant="rectangular"
+                  width={176}
+                  height={180}
+                  style={{ marginBottom: '1rem' }}
+                />
+                <Skeleton />
+                <Skeleton width="60%" />
+              </Box>
+            ))}
+        </S.MovieList>
+      ) : (
+        <S.MovieList>
+          {selectedGenres.length === 0
+            ? popularMovies.map(infos => (
                 <CardMovie
                   key={infos.id}
                   name={infos.title}
@@ -96,8 +111,22 @@ const HomeLayout = () => {
                   poster={infos.poster_path}
                   id={infos.id}
                 />
-              ))}
-      </S.MovieList>
+              ))
+            : popularMovies
+                .filter(infos =>
+                  infos.genre_ids.some(item => selectedGenres.includes(item)),
+                )
+                .map(infos => (
+                  <CardMovie
+                    key={infos.id}
+                    name={infos.title}
+                    date={infos.release_date}
+                    poster={infos.poster_path}
+                    id={infos.id}
+                  />
+                ))}
+        </S.MovieList>
+      )}
 
       {selectedGenres.length === 0 && (
         <S.WrapperPagination>
