@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-
-import { formatDate, convertHours } from '../../utils'
-import Image from 'next/image'
 import Head from 'next/head'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Scrollbar } from 'swiper'
 import Hero from '../../components/Hero'
 import CardCast from '../../components/CardCast'
 import TrailerMovie from '../../components/TrailerMovie'
 import CardMovie from '../../components/CardMovie'
+import PosterMovie from '../../components/PosterMovie'
+import WrapperTextMovie from '../../components/WrapperTextMovie'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Scrollbar } from 'swiper'
-import { PieChart } from 'react-minimal-pie-chart'
-import { BASE_URL, IMAGE_URL } from '../../api/config'
+import { BASE_URL } from '../../api/config'
 
 import * as S from './styles'
 
 const MovieLayout = ({ movie }) => {
   const router = useRouter()
   const { id } = router.query
-  const percentAverage = (movie.vote_average * 100) / 10
 
   const [isLoading, setIsLoading] = useState(false)
   const [releaseDates, setReleaseDates] = useState([])
@@ -66,98 +63,13 @@ const MovieLayout = ({ movie }) => {
       </Head>
       <Hero>
         <S.Container className="containerhero">
-          <S.Poster>
-            <Image
-              src={`${IMAGE_URL}/${movie.poster_path}`}
-              alt="poster"
-              width={383}
-              height={574}
-              quality={80}
-              loading="lazy"
-            />
-          </S.Poster>
-          <S.WrapperText>
-            <S.TitleMovie>
-              {movie.title} ({movie.release_date.slice(0, 4)})
-            </S.TitleMovie>
-            <S.InfosMovie>
-              <li>
-                {releaseDates
-                  .filter(item => item.iso_3166_1 === 'BR')
-                  .map(item => {
-                    if (item.release_dates[0].certification === 'L') {
-                      return 'Livre'
-                    }
-
-                    return `${item.release_dates[0].certification} anos`
-                  })}
-              </li>
-              <li>{formatDate(movie.release_date)}</li>
-              <li>
-                {movie.genres.map(
-                  (item, index) => (index ? ', ' : '') + ' ' + item.name,
-                )}
-              </li>
-              <li>{convertHours(movie.runtime)}</li>
-            </S.InfosMovie>
-            <S.MovieDonutChart>
-              <S.MovieDonutChartContent>
-                <PieChart
-                  data={[
-                    {
-                      value: Math.round(percentAverage) || ' ',
-                      color: '#14FF00',
-                    },
-                  ]}
-                  totalValue={100}
-                  lineWidth={20}
-                  label={({ dataEntry }) => `${dataEntry.value}%`}
-                  labelPosition={0}
-                  rounded={true}
-                  startAngle={270}
-                  style={{ widht: '80px' }}
-                  labelStyle={{ fontSize: '2.2rem', fill: '#14FF00' }}
-                />
-              </S.MovieDonutChartContent>
-              <p>
-                Avaliação dos <br /> usuários
-              </p>
-            </S.MovieDonutChart>
-
-            <S.TitleSynopsis>Sinopse</S.TitleSynopsis>
-            <S.DescriptionMovie>{movie.overview}</S.DescriptionMovie>
-            <S.StaffMovie>
-              <div>
-                <h3>{movieCast[0]?.original_name}</h3>
-                <p>{movieCast[0]?.character}</p>
-              </div>
-
-              <div>
-                <h3>{movieCast[1]?.original_name}</h3>
-                <p>{movieCast[1]?.character}</p>
-              </div>
-
-              {movieCrew
-                ?.filter(item => item.department === 'Directing')
-                .slice(0, 1)
-                .map(item => (
-                  <div key={item.id}>
-                    <h3>{item.original_name}</h3>
-                    <p>{item.job}</p>
-                  </div>
-                ))}
-
-              {movieCrew
-                ?.filter(item => item.department === 'Writing')
-                .slice(0, 2)
-                .map(item => (
-                  <div key={Math.random(item.id)}>
-                    <h3>{item.original_name}</h3>
-                    <p>{item.job}</p>
-                  </div>
-                ))}
-            </S.StaffMovie>
-          </S.WrapperText>
+          <PosterMovie poster={movie.poster_path} />
+          <WrapperTextMovie
+            movie={movie}
+            releaseDates={releaseDates}
+            movieCrew={movieCrew}
+            movieCast={movieCast}
+          />
         </S.Container>
       </Hero>
 
