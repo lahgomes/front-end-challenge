@@ -12,7 +12,7 @@ import CardMovie from '../../components/CardMovie'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
 import { PieChart } from 'react-minimal-pie-chart'
-import { IMAGE_URL } from '../../api/config'
+import { BASE_URL, IMAGE_URL } from '../../api/config'
 
 import * as S from './styles'
 
@@ -33,16 +33,16 @@ const MovieLayout = ({ movie }) => {
       setIsLoading(true)
       Promise.all([
         fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+          `${BASE_URL}/movie/${movie.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
         ).then(response => response.json()),
         fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+          `${BASE_URL}/movie/${movie.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
         ).then(response => response.json()),
         fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR&page=1`,
+          `${BASE_URL}/movie/${movie.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR&page=1`,
         ).then(response => response.json()),
         fetch(
-          `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+          `${BASE_URL}/movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
         ).then(response => response.json()),
       ])
         .then(allResponses => {
