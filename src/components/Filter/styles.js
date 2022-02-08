@@ -17,7 +17,7 @@ export const FormTitle = styled.legend`
 export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem 1rem;
+  gap: 1.2rem 1.2rem;
   margin: 0 auto;
   max-width: 90rem;
   padding: 1rem;
@@ -41,10 +41,10 @@ export const FormLabel = styled.label`
   font-weight: ${props => props.theme.bold};
   padding: 0.8rem 1.6rem;
 
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  display: flex;
   gap: 0.5rem;
+  justify-content: space-between;
 
   svg {
     color: ${props => props.theme.white};
