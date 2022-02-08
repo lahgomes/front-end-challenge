@@ -1,3 +1,7 @@
-const Custom404Page = () => <h1>404</h1>
+import Page404Layout from '../layout/404'
+
+const Custom404Page = () => {
+  return <Page404Layout />
+}
 
 export default Custom404Page
