@@ -15,36 +15,48 @@ import { IMAGE_URL } from '../../api/config'
 
 import * as S from './styles'
 
-const MovieLayout = () => {
+const MovieLayout = ({ movie }) => {
   const router = useRouter()
-  //const [isLoading, setIsLoading] = useState(false)
-  const [detailsMovies, setDetailsMovies] = useState({})
-  /* const [releaseDates, setReleaseDates] = useState([]) */
+  const { id } = router.query
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [releaseDates, setReleaseDates] = useState([])
   const [movieCrew, setMovieCrew] = useState([])
   const [movieCast, setMovieCast] = useState([])
   const [movieVideo, setMovieVideo] = useState([])
   const [movieRecommendations, setMovieRecommendations] = useState([])
 
-  const { id } = router.query
-
   useEffect(() => {
-    const moviesdetails = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-        )
-
-        const data = await response.json()
-        setDetailsMovies(data)
-      } catch (error) {
-        console.log(error)
-      }
+    const allInfoMovie = () => {
+      setIsLoading(true)
+      Promise.all([
+        fetch(
+          `https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+        ).then(response => response.json()),
+        fetch(
+          `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+        ).then(response => response.json()),
+        fetch(
+          `https://api.themoviedb.org/3/movie/${movie.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR&page=1`,
+        ).then(response => response.json()),
+        fetch(
+          `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+        ).then(response => response.json()),
+      ])
+        .then(allResponses => {
+          setMovieCrew([...allResponses[0].crew])
+          setMovieCast([...allResponses[0].cast])
+          setMovieVideo([...allResponses[1].results])
+          setMovieRecommendations([...allResponses[2].results])
+          setReleaseDates([...allResponses[3].results])
+          console.log(allResponses[3])
+        })
+        .catch(error => router.push('/'))
+        .finally(() => setIsLoading(false))
     }
 
-    if (id !== undefined) {
-      moviesdetails()
-    }
-  }, [id])
+    allInfoMovie()
+  }, [movie.id])
 
   /* useEffect(() => {
     const releasedates = async () => {
@@ -61,56 +73,6 @@ const MovieLayout = () => {
     releasedates()
   }, [id]) */
 
-  useEffect(() => {
-    const moviescredits = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-        )
-
-        const data = await response.json()
-        setMovieCrew(data.crew)
-        setMovieCast(data.cast)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    if (id !== undefined) {
-      moviescredits()
-    }
-  }, [id])
-
-  useEffect(() => {
-    const moviesvideos = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-      )
-
-      const data = await response.json()
-      setMovieVideo(data.results)
-    }
-
-    if (id !== undefined) {
-      moviesvideos()
-    }
-  }, [id])
-
-  useEffect(() => {
-    const moviesrecommendations = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR&page=1`,
-      )
-
-      const data = await response.json()
-      setMovieRecommendations(data.results)
-    }
-
-    if (id !== undefined) {
-      moviesrecommendations()
-    }
-  }, [id])
-
   return (
     <main>
       <Head>
@@ -120,7 +82,7 @@ const MovieLayout = () => {
         <S.Container className="containerhero">
           <S.Poster>
             <Image
-              src={`${IMAGE_URL}/${detailsMovies.poster_path}`}
+              src={`${IMAGE_URL}/${movie.poster_path}`}
               alt="poster"
               width={383}
               height={574}
@@ -128,20 +90,30 @@ const MovieLayout = () => {
           </S.Poster>
           <S.WrapperText>
             <S.TitleMovie>
-              {detailsMovies.title} ({detailsMovies?.release_date?.slice(0, 4)})
+              {movie.title} ({movie.release_date.slice(0, 4)})
             </S.TitleMovie>
             <S.InfosMovie>
-              <li>16 anos</li>
-              <li>{formatDate(detailsMovies?.release_date)}</li>
               <li>
-                {detailsMovies?.genres?.map(
+                {releaseDates
+                  .filter(item => item.iso_3166_1 === 'BR')
+                  .map(item => {
+                    if (item.release_dates[0].certification === 'L') {
+                      return 'Livre'
+                    }
+
+                    return `${item.release_dates[0].certification} anos`
+                  })}
+              </li>
+              <li>{formatDate(movie.release_date)}</li>
+              <li>
+                {movie.genres.map(
                   (item, index) => (index ? ', ' : '') + ' ' + item.name,
                 )}
               </li>
-              <li>{convertHours(detailsMovies?.runtime)}</li>
+              <li>{convertHours(movie.runtime)}</li>
             </S.InfosMovie>
             <S.TitleSynopsis>Sinopse</S.TitleSynopsis>
-            <S.DescriptionMovie>{detailsMovies?.overview}</S.DescriptionMovie>
+            <S.DescriptionMovie>{movie.overview}</S.DescriptionMovie>
 
             <S.StaffMovie>
               <div>
@@ -178,71 +150,75 @@ const MovieLayout = () => {
         </S.Container>
       </Hero>
 
-      <S.Container>
-        <h1>Elenco original</h1>
-        <Swiper
-          scrollbar={{
-            hide: false,
-          }}
-          modules={[Scrollbar]}
-          className="mySwiper"
-          slidesPerView={2}
-          spaceBetween={10}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 5,
-              spaceBetween: 50,
-            },
-          }}
-          style={{ cursor: 'grab' }}
-        >
-          {movieCast.map(cast => {
-            return (
-              <SwiperSlide key={cast.id}>
-                <CardCast
-                  name={cast.original_name}
-                  character={cast.character}
-                  poster={cast.profile_path}
-                />
-              </SwiperSlide>
-            )
-          })}
-        </Swiper>
-      </S.Container>
+      {!isLoading && (
+        <S.Container>
+          <h1>Elenco original</h1>
+          <Swiper
+            scrollbar={{
+              hide: false,
+            }}
+            modules={[Scrollbar]}
+            className="mySwiper"
+            slidesPerView={2}
+            spaceBetween={10}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+              },
+            }}
+            style={{ cursor: 'grab' }}
+          >
+            {movieCast.map(cast => {
+              return (
+                <SwiperSlide key={cast.id}>
+                  <CardCast
+                    name={cast.original_name}
+                    character={cast.character}
+                    poster={cast.profile_path}
+                  />
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
+        </S.Container>
+      )}
 
-      {movieVideo.length > 0 && (
+      {!isLoading && movieVideo.length > 0 && (
         <S.Container>
           <h1>Trailer</h1>
           <TrailerMovie moviekey={movieVideo[0].key} />
         </S.Container>
       )}
 
-      <S.Container>
-        <h1>Recomendações</h1>
-        <S.WrapperRecommendation>
-          {movieRecommendations
-            .filter((_, index) => index < 6)
-            .map(movie => {
-              return (
-                <CardMovie
-                  key={movie.id}
-                  id={movie.id}
-                  name={movie.title}
-                  date={movie.release_date}
-                  poster={movie.poster_path}
-                />
-              )
-            })}
-        </S.WrapperRecommendation>
-      </S.Container>
+      {!isLoading && movieRecommendations.length > 0 && (
+        <S.Container>
+          <h1>Recomendações</h1>
+          <S.WrapperRecommendation>
+            {movieRecommendations
+              .filter((_, index) => index < 6)
+              .map(movie => {
+                return (
+                  <CardMovie
+                    key={movie.id}
+                    id={movie.id}
+                    name={movie.title}
+                    date={movie.release_date}
+                    poster={movie.poster_path}
+                  />
+                )
+              })}
+          </S.WrapperRecommendation>
+        </S.Container>
+      )}
     </main>
   )
 }
