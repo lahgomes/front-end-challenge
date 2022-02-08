@@ -42,7 +42,7 @@ const MovieLayout = ({ movie }) => {
           `${BASE_URL}/movie/${movie.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR&page=1`,
         ).then(response => response.json()),
         fetch(
-          `${BASE_URL}/movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
+          `${BASE_URL}/movie/${movie.id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
         ).then(response => response.json()),
       ])
         .then(allResponses => {
@@ -51,14 +51,13 @@ const MovieLayout = ({ movie }) => {
           setMovieVideo([...allResponses[1].results])
           setMovieRecommendations([...allResponses[2].results])
           setReleaseDates([...allResponses[3].results])
-          console.log(allResponses[3])
         })
         .catch(error => router.push('/'))
         .finally(() => setIsLoading(false))
     }
 
     allInfoMovie()
-  }, [movie.id])
+  }, [movie.id, router])
 
   return (
     <main>
@@ -73,6 +72,8 @@ const MovieLayout = ({ movie }) => {
               alt="poster"
               width={383}
               height={574}
+              quality={80}
+              loading="lazy"
             />
           </S.Poster>
           <S.WrapperText>
@@ -182,7 +183,7 @@ const MovieLayout = ({ movie }) => {
               },
               1024: {
                 slidesPerView: 5,
-                spaceBetween: 50,
+                spaceBetween: 30,
               },
             }}
             style={{ cursor: 'grab' }}

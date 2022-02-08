@@ -33,7 +33,6 @@ export const Poster = styled.figure`
     border-radius: 0.8rem;
   }
 `
-
 export const WrapperText = styled.section`
   color: ${props => props.theme.white};
   max-width: 65rem;
@@ -75,7 +74,6 @@ export const DescriptionMovie = styled.p`
   font-weight: ${props => props.theme.normal};
   margin-bottom: 2rem;
 `
-
 export const StaffMovie = styled.section`
   display: flex;
   flex-wrap: wrap;

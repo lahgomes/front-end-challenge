@@ -16,6 +16,8 @@ const CardMovie = ({ id, name, date, poster }) => {
               alt="poster"
               width={176}
               height={264}
+              quality={80}
+              loading="lazy"
             />
           </a>
         </Link>

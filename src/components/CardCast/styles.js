@@ -7,8 +7,7 @@ export const PhotoCast = styled.figure`
   display: flex;
   flex-direction: column;
   height: 35rem;
-  margin-top: 3.2rem;
-  padding: 0.8rem !important;
+  padding: 0.8rem;
   width: 16rem;
 
   @media (min-width: 768px) {
