@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useContext } from 'react'
 import { GlobalContext } from '../../context'
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -28,6 +29,10 @@ const Filter = ({ genres }) => {
       </S.Wrapper>
     </S.Form>
   )
+}
+
+Filter.propTypes = {
+  genres: PropTypes.array.isRequired,
 }
 
 export default Filter

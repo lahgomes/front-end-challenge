@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Image from 'next/image'
 import { IMAGE_URL } from '../../api/config'
 import * as S from './styles'
@@ -23,6 +24,12 @@ const CardCast = ({ name, character, poster }) => {
       </figcaption>
     </S.PhotoCast>
   )
+}
+
+CardCast.propTypes = {
+  name: PropTypes.string.isRequired,
+  character: PropTypes.string.isRequired,
+  poster: PropTypes.string,
 }
 
 export default CardCast

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { formatDate } from '../../utils'
@@ -28,6 +29,13 @@ const CardMovie = ({ id, name, date, poster }) => {
       </S.Thumb>
     </>
   )
+}
+
+CardMovie.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
 }
 
 export default CardMovie

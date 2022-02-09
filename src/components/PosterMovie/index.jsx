@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Image from 'next/image'
 import { IMAGE_URL } from '../../api/config'
 
@@ -16,6 +17,10 @@ const PosterMovie = ({ poster }) => {
       />
     </S.Poster>
   )
+}
+
+PosterMovie.propTypes = {
+  poster: PropTypes.string.isRequired,
 }
 
 export default PosterMovie

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import * as S from './styles'
 
 const TrailerMovie = ({ moviekey }) => {
@@ -10,6 +11,10 @@ const TrailerMovie = ({ moviekey }) => {
       allowFullScreen
     />
   )
+}
+
+TrailerMovie.propTypes = {
+  moviekey: PropTypes.string.isRequired,
 }
 
 export default TrailerMovie

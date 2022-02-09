@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { formatDate, convertHours } from '../../utils'
 import { PieChart } from 'react-minimal-pie-chart'
 
@@ -5,8 +6,6 @@ import * as S from './styles'
 
 const WrapperTextMovie = ({ movie, releaseDates, movieCrew, movieCast }) => {
   const percentAverage = (movie.vote_average * 100) / 10
-
-  console.log(releaseDates)
 
   return (
     <S.WrapperText>
@@ -16,13 +15,15 @@ const WrapperTextMovie = ({ movie, releaseDates, movieCrew, movieCast }) => {
       <S.InfosMovie>
         {releaseDates
           .filter(item => item.iso_3166_1 === 'BR')
-          .map(item => {
+          .map((item, index) => {
             if (item.release_dates[0].certification === 'L') {
-              return <li>Livre</li>
+              return <li key={index}>Livre</li>
             }
 
             if (item.release_dates[0].certification !== '') {
-              return <li>{item.release_dates[0].certification} anos</li>
+              return (
+                <li key={index}>{item.release_dates[0].certification} anos</li>
+              )
             }
           })}
 
@@ -97,6 +98,13 @@ const WrapperTextMovie = ({ movie, releaseDates, movieCrew, movieCast }) => {
       </S.StaffMovie>
     </S.WrapperText>
   )
+}
+
+WrapperTextMovie.propTypes = {
+  movie: PropTypes.object.isRequired,
+  releaseDates: PropTypes.array.isRequired,
+  movieCrew: PropTypes.array.isRequired,
+  movieCast: PropTypes.array.isRequired,
 }
 
 export default WrapperTextMovie
