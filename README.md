@@ -3,7 +3,7 @@
 
 Olá! Esse projeto é um teste para a vaga de Front-End Júnior na empresa [Promobit](https://www.promobit.com.br/)! 
 
-Utilizando a API de filmes TMDB [themoviedb](https://developers.themoviedb.org/3/getting-started/introduction) e o [layout do figma](https://www.figma.com/file/rM7WPqhLY9ObnGzSCeWLxB/Teste-Front-End?node-id=0%3A1), o objetivo desse desafio é criar uma listagem de filmes mais populares do dia, através dos endpoints disponíveis. O usuário também será capaz de filtrar essa listagem pelos gêneros que gosta mais e navegar entre as páginas. Ao clicar no filme escolhido,  outra página com mais detalhes será aberta, com informações sobre data de estreia, elenco, direção, trailer e novas recomendações. 
+Utilizando a API de filmes TMDB [themoviedb](https://developers.themoviedb.org/3/getting-started/introduction) e o [layout do figma](https://www.figma.com/file/rM7WPqhLY9ObnGzSCeWLxB/Teste-Front-End?node-id=0%3A1), o objetivo desse desafio é criar uma listagem de filmes mais populares do dia, através dos endpoints disponíveis. O usuário também será capaz de filtrar essa listagem pelos gêneros que gosta mais e navegar entre as páginas. Ao clicar no filme escolhido,  outra página mais detalhada será aberta, com informações sobre data de estreia, elenco, direção, trailer e novas recomendações. 
 
 ## Índice
 
