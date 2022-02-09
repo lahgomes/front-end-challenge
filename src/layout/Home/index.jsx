@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import Pagination from '@mui/material/Pagination'
@@ -9,6 +9,7 @@ import Hero from '../../components/Hero'
 import Filter from '../../components/Filter'
 import CardMovie from '../../components/CardMovie'
 import { fetchAPI, handlingAPIErrors } from '../../api/config'
+import { GlobalContext } from '../../context'
 
 import * as S from './styles'
 
@@ -17,8 +18,9 @@ const HomeLayout = () => {
   const [popularMovies, setPopularMovies] = useState([])
   const [page, setPage] = useState(parseInt(router.query.page) || 1)
   const [genres, setGenres] = useState([])
-  const [selectedGenres, setSelectedGenres] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+
+  const { selectedGenres } = useContext(GlobalContext)
 
   useEffect(() => {
     const movies = async () => {
@@ -76,16 +78,6 @@ const HomeLayout = () => {
     genres()
   }, [])
 
-  const handleFilterGenres = (e, idMovie) => {
-    if (e.target.checked) {
-      setSelectedGenres(prevState => [...prevState, idMovie])
-      return
-    }
-
-    const removeGenres = selectedGenres.filter(value => value !== idMovie)
-    setSelectedGenres(removeGenres)
-  }
-
   return (
     <>
       <NextSeo
@@ -106,7 +98,7 @@ const HomeLayout = () => {
             Milhões de filmes, séries e pessoas para descobrir. Explore já.
           </S.Title>
 
-          <Filter genres={genres} handleFilterGenres={handleFilterGenres} />
+          <Filter genres={genres} />
         </Hero>
 
         {isLoading ? (
