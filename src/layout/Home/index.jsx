@@ -4,11 +4,11 @@ import { NextSeo } from 'next-seo'
 import Pagination from '@mui/material/Pagination'
 import Box from '@mui/material/Box'
 import Skeleton from '@mui/material/Skeleton'
-
+import { ToastContainer, toast } from 'react-toastify'
 import Hero from '../../components/Hero'
 import Filter from '../../components/Filter'
 import CardMovie from '../../components/CardMovie'
-import { fetchAPI } from '../../api/config'
+import { fetchAPI, handlingAPIErrors } from '../../api/config'
 
 import * as S from './styles'
 
@@ -26,10 +26,15 @@ const HomeLayout = () => {
         setIsLoading(true)
         const response = await fetchAPI('movie/popular', page)
 
+        if (!response.ok) {
+          toast.error(handlingAPIErrors(response.status))
+          return
+        }
+
         const data = await response.json()
         setPopularMovies([...data.results])
       } catch (error) {
-        console.log(error)
+        toast.error(handlingAPIErrors())
       } finally {
         setIsLoading(false)
       }
@@ -51,10 +56,21 @@ const HomeLayout = () => {
 
   useEffect(() => {
     const genres = async () => {
-      const response = await fetchAPI('genre/movie/list')
+      try {
+        const response = await fetchAPI('genre/movie/list')
 
-      const data = await response.json()
-      setGenres([...data.genres])
+        if (!response.ok) {
+          toast.error(
+            'Um erro foi encontrado ao carregar as categorias, atualize a página e tente novamente.',
+          )
+          return
+        }
+
+        const data = await response.json()
+        setGenres([...data.genres])
+      } catch (error) {
+        toast.error(handlingAPIErrors())
+      }
     }
 
     genres()
@@ -84,6 +100,7 @@ const HomeLayout = () => {
         }}
       />
       <main>
+        <ToastContainer position="bottom-right" autoClose={3000} />
         <Hero>
           <S.Title>
             Milhões de filmes, séries e pessoas para descobrir. Explore já.
