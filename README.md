@@ -40,7 +40,7 @@ O teste foi um grande desafio para mim, pois me possibilitou a chance de pensar 
 
 Escolhi trabalhar com o framework Next.JS porque é uma ferramenta que, além de ser "developer friendly", também melhora a experiência do usuário. O Next tem um ótimo setup, como por exemplo, a pasta page já configurada para as rotas de navegação e a sua renderização ao lado do servidor, o que garante o melhor SEO. Por isso, para reduzir o tempo de carregamento do site e torná-lo mais indexável, optei em trabalhar com o SSR (Server Side Rendering) na página de detalhes dos filmes, fazendo com que o browser fique menos sobrecarregado.
 
-Para persistir os dados do filtro dos gêneros que o usuário seleciona, utilizei a aplicação Context API, sendo possível assim, voltar para a página Home e manter os filtros ativos. Com o Context foi possível armanezar esses dados selecionados e fornecer diretamente para o componente que precisava consumi-los.
+Para persistir os dados do filtro dos gêneros que o usuário seleciona, utilizei a aplicação Context API, sendo possível assim, voltar para a página Home e manter os filtros ativos. Com o Context foi possível armazenar esses dados selecionados e fornecer diretamente para o componente que precisava consumi-los.
 
 ## Acesse o site:🎉
 
