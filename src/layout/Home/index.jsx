@@ -4,13 +4,13 @@ import { NextSeo } from 'next-seo'
 import Pagination from '@mui/material/Pagination'
 import Box from '@mui/material/Box'
 import Skeleton from '@mui/material/Skeleton'
-
+import { ToastContainer, toast } from 'react-toastify'
 import Hero from '../../components/Hero'
 import Filter from '../../components/Filter'
 import CardMovie from '../../components/CardMovie'
+import { fetchAPI, handlingAPIErrors } from '../../api/config'
 
 import * as S from './styles'
-import { BASE_URL } from '../../api/config'
 
 const HomeLayout = () => {
   const router = useRouter()
@@ -24,14 +24,17 @@ const HomeLayout = () => {
     const movies = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(
-          `${BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}&language=pt-BR`,
-        )
+        const response = await fetchAPI('movie/popular', page)
+
+        if (!response.ok) {
+          toast.error(handlingAPIErrors(response.status))
+          return
+        }
 
         const data = await response.json()
         setPopularMovies([...data.results])
       } catch (error) {
-        console.log(error)
+        toast.error(handlingAPIErrors())
       } finally {
         setIsLoading(false)
       }
@@ -53,12 +56,21 @@ const HomeLayout = () => {
 
   useEffect(() => {
     const genres = async () => {
-      const response = await fetch(
-        `${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-      )
+      try {
+        const response = await fetchAPI('genre/movie/list')
 
-      const data = await response.json()
-      setGenres([...data.genres])
+        if (!response.ok) {
+          toast.error(
+            'Um erro foi encontrado ao carregar as categorias, atualize a página e tente novamente.',
+          )
+          return
+        }
+
+        const data = await response.json()
+        setGenres([...data.genres])
+      } catch (error) {
+        toast.error(handlingAPIErrors())
+      }
     }
 
     genres()
@@ -88,6 +100,7 @@ const HomeLayout = () => {
         }}
       />
       <main>
+        <ToastContainer position="bottom-right" autoClose={3000} />
         <Hero>
           <S.Title>
             Milhões de filmes, séries e pessoas para descobrir. Explore já.

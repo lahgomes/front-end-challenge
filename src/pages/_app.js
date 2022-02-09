@@ -6,6 +6,7 @@ import Header from '../components/Header'
 
 import 'swiper/css'
 import 'swiper/css/scrollbar'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }) {
   return (
