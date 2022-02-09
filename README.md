@@ -9,8 +9,8 @@ Utilizando a API de filmes TMDB [themoviedb](https://developers.themoviedb.org/3
 
 - [Como executar o projeto](#como-executar-o-projeto)
 - [Stacks utilizadas](#stacks-utilizadas)
-- [Técnicas aplicadas](#stacks-utilizadas)
 - [Desafios encontrados](#desafios-encontrados)
+- [Acesse o site](#acesse-o-site)
 
 
 ## Como executar o projeto: 
@@ -34,6 +34,14 @@ Utilizando a API de filmes TMDB [themoviedb](https://developers.themoviedb.org/3
    - [Pie Chart](https://www.npmjs.com/package/react-minimal-pie-chart)
    - [Toastify](https://www.npmjs.com/package/react-toastify)           
 
-## Técnicas aplicadas:
-
 ## Desafios encontrados:
+
+O teste foi um grande desafio para mim, pois me possibilitou a chance de pensar em soluções mais inteligentes, não só manipulando os diversos fetches da API, mas também na melhor forma de manter uma boa arquitetura e um código limpo. Dessa forma, busquei componentizar ao máximo, trabalhando com as props e assim mantendo uma aplicação mais simples, facilitando, por exemplo, uma possível mudança de escopo ao longo do tempo.
+
+Escolhi trabalhar com o framework Next.JS por várias funcionalidades simples e modernas dele, como a rota de navegação entre as páginas (pages) e a sua renderização no lado do servidor, o que que garante o melhor SEO. Assim, para reduzir o tempo de carregamento do site e torná-lo mais indexável, optei em trabalhar com o SSR (Server Side Rendering) na página de detalhes dos filmes, fazendo com que o browser fique menos carregado e melhorando a experiência do usuário.
+
+## Acesse o site:🎉
+
+ Para finalizar, aproveite o projeto e navegue pelos filmes mais populares do dia [aqui](https://larissagomes-frontend-challenge.vercel.app/)!🎞
+ 
+ [⬆ Voltar ao topo](#tmdb-movies)<br>
