@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
-
+import PropTypes from 'prop-types'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
 import Hero from '../../components/Hero'
@@ -151,6 +151,10 @@ const MovieLayout = ({ movie }) => {
       </main>
     </>
   )
+}
+
+MovieLayout.propTypes = {
+  movie: PropTypes.object.isRequired,
 }
 
 export default MovieLayout
