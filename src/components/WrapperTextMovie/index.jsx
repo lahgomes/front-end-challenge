@@ -6,23 +6,26 @@ import * as S from './styles'
 const WrapperTextMovie = ({ movie, releaseDates, movieCrew, movieCast }) => {
   const percentAverage = (movie.vote_average * 100) / 10
 
+  console.log(releaseDates)
+
   return (
     <S.WrapperText>
       <S.TitleMovie>
         {movie.title} ({movie.release_date.slice(0, 4)})
       </S.TitleMovie>
       <S.InfosMovie>
-        <li>
-          {releaseDates
-            .filter(item => item.iso_3166_1 === 'BR')
-            .map(item => {
-              if (item.release_dates[0].certification === 'L') {
-                return 'Livre'
-              }
+        {releaseDates
+          .filter(item => item.iso_3166_1 === 'BR')
+          .map(item => {
+            if (item.release_dates[0].certification === 'L') {
+              return <li>Livre</li>
+            }
 
-              return `${item.release_dates[0].certification} anos`
-            })}
-        </li>
+            if (item.release_dates[0].certification !== '') {
+              return <li>{item.release_dates[0].certification} anos</li>
+            }
+          })}
+
         <li>{formatDate(movie.release_date)}</li>
         <li>
           {movie.genres.map(
