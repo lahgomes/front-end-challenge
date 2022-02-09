@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
 import Pagination from '@mui/material/Pagination'
 import Box from '@mui/material/Box'
 import Skeleton from '@mui/material/Skeleton'
@@ -74,49 +75,48 @@ const HomeLayout = () => {
   }
 
   return (
-    <main>
-      <Hero>
-        <S.Title>
-          Milhões de filmes, séries e pessoas para descobrir. Explore já.
-        </S.Title>
+    <>
+      <NextSeo
+        title="TMDB :: Home"
+        description="Desafio Frontend da Promobit"
+        canonical="https://larissagomes-frontend-challenge.vercel.app/"
+        openGraph={{
+          url: 'https://larissagomes-frontend-challenge.vercel.app/',
+          title: 'TMDB',
+          description: 'Desafio Frontend da Promobit',
+          site_name: 'TMDB',
+        }}
+      />
+      <main>
+        <Hero>
+          <S.Title>
+            Milhões de filmes, séries e pessoas para descobrir. Explore já.
+          </S.Title>
 
-        <Filter genres={genres} handleFilterGenres={handleFilterGenres} />
-      </Hero>
+          <Filter genres={genres} handleFilterGenres={handleFilterGenres} />
+        </Hero>
 
-      {isLoading ? (
-        <S.MovieList>
-          {Array(10)
-            .fill()
-            .map((_, index) => (
-              <Box key={index}>
-                <Skeleton
-                  variant="rectangular"
-                  width={176}
-                  height={180}
-                  style={{ marginBottom: '1rem' }}
-                />
-                <Skeleton />
-                <Skeleton width="60%" />
-              </Box>
-            ))}
-        </S.MovieList>
-      ) : (
-        <S.MovieList>
-          {selectedGenres.length === 0
-            ? popularMovies.map(infos => (
-                <CardMovie
-                  key={infos.id}
-                  name={infos.title}
-                  date={infos.release_date}
-                  poster={infos.poster_path}
-                  id={infos.id}
-                />
-              ))
-            : popularMovies
-                .filter(infos =>
-                  infos.genre_ids.some(item => selectedGenres.includes(item)),
-                )
-                .map(infos => (
+        {isLoading ? (
+          <S.MovieList>
+            {Array(10)
+              .fill()
+              .map((_, index) => (
+                <Box key={index}>
+                  <Skeleton
+                    variant="rectangular"
+                    width={176}
+                    height={180}
+                    style={{ marginBottom: '1rem' }}
+                  />
+                  <Skeleton />
+                  <Skeleton width="60%" />
+                </Box>
+              ))}
+          </S.MovieList>
+        ) : (
+          <S.MovieList>
+            {selectedGenres.length === 0
+              ? popularMovies.map(infos => (
                   <CardMovie
                     key={infos.id}
                     name={infos.title}
@@ -124,22 +124,36 @@ const HomeLayout = () => {
                     poster={infos.poster_path}
                     id={infos.id}
                   />
-                ))}
-        </S.MovieList>
-      )}
+                ))
+              : popularMovies
+                  .filter(infos =>
+                    infos.genre_ids.some(item => selectedGenres.includes(item)),
+                  )
+                  .map(infos => (
+                    <CardMovie
+                      key={infos.id}
+                      name={infos.title}
+                      date={infos.release_date}
+                      poster={infos.poster_path}
+                      id={infos.id}
+                    />
+                  ))}
+          </S.MovieList>
+        )}
 
-      {selectedGenres.length === 0 && (
-        <S.WrapperPagination>
-          <Pagination
-            count={100}
-            page={page}
-            onChange={handleChange}
-            color="standard"
-            className="pagination"
-          />
-        </S.WrapperPagination>
-      )}
-    </main>
+        {selectedGenres.length === 0 && (
+          <S.WrapperPagination>
+            <Pagination
+              count={100}
+              page={page}
+              onChange={handleChange}
+              color="standard"
+              className="pagination"
+            />
+          </S.WrapperPagination>
+        )}
+      </main>
+    </>
   )
 }
 

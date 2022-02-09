@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
+
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar } from 'swiper'
 import Hero from '../../components/Hero'
@@ -57,92 +58,102 @@ const MovieLayout = ({ movie }) => {
   }, [movie.id, router])
 
   return (
-    <main>
-      <Head>
-        <title>{id}</title>
-      </Head>
-      <Hero>
-        <S.Container className="containerhero">
-          <PosterMovie poster={movie.poster_path} />
-          <WrapperTextMovie
-            movie={movie}
-            releaseDates={releaseDates}
-            movieCrew={movieCrew}
-            movieCast={movieCast}
-          />
-        </S.Container>
-      </Hero>
+    <>
+      <NextSeo
+        title={`TMDB :: ${movie.title}` || ''}
+        description={movie.overview || 'Desafio Frontend da Promobit'}
+        canonical="https://larissagomes-frontend-challenge.vercel.app/"
+        openGraph={{
+          url: 'https://larissagomes-frontend-challenge.vercel.app/',
+          title: 'TMDB',
+          description: `${movie.overview}`,
+          site_name: 'TMDB',
+        }}
+      />
+      <main>
+        <Hero>
+          <S.Container className="containerhero">
+            <PosterMovie poster={movie.poster_path} />
+            <WrapperTextMovie
+              movie={movie}
+              releaseDates={releaseDates}
+              movieCrew={movieCrew}
+              movieCast={movieCast}
+            />
+          </S.Container>
+        </Hero>
 
-      {!isLoading && (
-        <S.Container>
-          <h1>Elenco original</h1>
-          <Swiper
-            scrollbar={{
-              hide: false,
-            }}
-            modules={[Scrollbar]}
-            className="mySwiper"
-            slidesPerView={2}
-            spaceBetween={10}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 4,
-                spaceBetween: 40,
-              },
-              1024: {
-                slidesPerView: 5,
-                spaceBetween: 30,
-              },
-            }}
-            style={{ cursor: 'grab' }}
-          >
-            {movieCast.map(cast => {
-              return (
-                <SwiperSlide key={cast.id}>
-                  <CardCast
-                    name={cast.original_name}
-                    character={cast.character}
-                    poster={cast.profile_path}
-                  />
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
-        </S.Container>
-      )}
-
-      {!isLoading && movieVideo.length > 0 && (
-        <S.Container>
-          <h1>Trailer</h1>
-          <TrailerMovie moviekey={movieVideo[0].key} />
-        </S.Container>
-      )}
-
-      {!isLoading && movieRecommendations.length > 0 && (
-        <S.Container>
-          <h1>Recomendações</h1>
-          <S.WrapperRecommendation>
-            {movieRecommendations
-              .filter((_, index) => index < 6)
-              .map(movie => {
+        {!isLoading && (
+          <S.Container>
+            <h1>Elenco original</h1>
+            <Swiper
+              scrollbar={{
+                hide: false,
+              }}
+              modules={[Scrollbar]}
+              className="mySwiper"
+              slidesPerView={2}
+              spaceBetween={10}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 5,
+                  spaceBetween: 30,
+                },
+              }}
+              style={{ cursor: 'grab' }}
+            >
+              {movieCast.map(cast => {
                 return (
-                  <CardMovie
-                    key={movie.id}
-                    id={movie.id}
-                    name={movie.title}
-                    date={movie.release_date}
-                    poster={movie.poster_path}
-                  />
+                  <SwiperSlide key={cast.id}>
+                    <CardCast
+                      name={cast.original_name}
+                      character={cast.character}
+                      poster={cast.profile_path}
+                    />
+                  </SwiperSlide>
                 )
               })}
-          </S.WrapperRecommendation>
-        </S.Container>
-      )}
-    </main>
+            </Swiper>
+          </S.Container>
+        )}
+
+        {!isLoading && movieVideo.length > 0 && (
+          <S.Container>
+            <h1>Trailer</h1>
+            <TrailerMovie moviekey={movieVideo[0].key} />
+          </S.Container>
+        )}
+
+        {!isLoading && movieRecommendations.length > 0 && (
+          <S.Container>
+            <h1>Recomendações</h1>
+            <S.WrapperRecommendation>
+              {movieRecommendations
+                .filter((_, index) => index < 6)
+                .map(movie => {
+                  return (
+                    <CardMovie
+                      key={movie.id}
+                      id={movie.id}
+                      name={movie.title}
+                      date={movie.release_date}
+                      poster={movie.poster_path}
+                    />
+                  )
+                })}
+            </S.WrapperRecommendation>
+          </S.Container>
+        )}
+      </main>
+    </>
   )
 }
 
