@@ -1,13 +1,12 @@
 import MovieLayout from '../../layout/Movie'
+import { fetchAPI } from '../../api/config'
 
 const Movie = ({ movie }) => {
   return <MovieLayout movie={movie} />
 }
 
 export async function getServerSideProps(context) {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${context.query.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-  )
+  const response = await fetchAPI(`movie/${context.query.id}`)
 
   if (response.status === 404) {
     return {

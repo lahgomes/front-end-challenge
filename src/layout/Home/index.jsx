@@ -8,9 +8,9 @@ import Skeleton from '@mui/material/Skeleton'
 import Hero from '../../components/Hero'
 import Filter from '../../components/Filter'
 import CardMovie from '../../components/CardMovie'
+import { fetchAPI } from '../../api/config'
 
 import * as S from './styles'
-import { BASE_URL } from '../../api/config'
 
 const HomeLayout = () => {
   const router = useRouter()
@@ -24,9 +24,7 @@ const HomeLayout = () => {
     const movies = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(
-          `${BASE_URL}/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}&language=pt-BR`,
-        )
+        const response = await fetchAPI('movie/popular', page)
 
         const data = await response.json()
         setPopularMovies([...data.results])
@@ -53,9 +51,7 @@ const HomeLayout = () => {
 
   useEffect(() => {
     const genres = async () => {
-      const response = await fetch(
-        `${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=pt-BR`,
-      )
+      const response = await fetchAPI('genre/movie/list')
 
       const data = await response.json()
       setGenres([...data.genres])
