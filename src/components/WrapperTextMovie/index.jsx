@@ -55,8 +55,12 @@ const WrapperTextMovie = ({ movie, releaseDates, movieCrew, movieCast }) => {
         </p>
       </S.MovieDonutChart>
 
-      <S.TitleSynopsis>Sinopse</S.TitleSynopsis>
-      <S.DescriptionMovie>{movie.overview}</S.DescriptionMovie>
+      {movie.overview !== '' && (
+        <>
+          <S.TitleSynopsis>Sinopse</S.TitleSynopsis>
+          <S.DescriptionMovie>{movie.overview}</S.DescriptionMovie>
+        </>
+      )}
       <S.StaffMovie>
         <div>
           <h3>{movieCast[0]?.original_name}</h3>
